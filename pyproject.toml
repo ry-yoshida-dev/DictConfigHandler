@@ -14,6 +14,9 @@ dependencies = [
     "dataclass-initializer @ git+https://github.com/ry-yoshida-private/DataclassInitializer.git",
 ]
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
 [project.optional-dependencies]
 dev = [
     "pytest",
