@@ -1,1 +1,1 @@
--e ".[dev]"
+dataclass-initializer @ https://github.com/ry-yoshida-private/DataclassInitializer.git
