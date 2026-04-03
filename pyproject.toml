@@ -26,4 +26,4 @@ dev = [
 packages = ["src/dictconfig_handler"]
 
 [tool.hatch.build.targets.wheel.force-include]
-"dictconfig_handler/py.typed" = "src/dictconfig_handler/py.typed"
+"src/dictconfig_handler/py.typed" = "dictconfig_handler/py.typed"
