@@ -11,7 +11,7 @@ license = { text = "MIT" }
 requires-python = ">=3.10"
 dependencies = [
     "omegaconf",
-    "dataclass-initializer @ git+https://github.com/ry-yoshida-private/DataclassInitializer.git",
+    "dataclass-initializer @ git+https://github.com/ry-yoshida-dev/DataclassInitializer.git",
 ]
 
 [tool.hatch.metadata]

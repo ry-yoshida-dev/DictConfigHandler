@@ -1,1 +1,1 @@
-dataclass-initializer @ https://github.com/ry-yoshida-private/DataclassInitializer.git
+dataclass-initializer @ https://github.com/ry-yoshida-dev/DataclassInitializer.git
