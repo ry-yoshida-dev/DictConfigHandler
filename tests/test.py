@@ -3,7 +3,7 @@ import pytest
 from dataclasses import dataclass
 from omegaconf import OmegaConf
 
-from src.dictconfig_handler import DictConfigHandler
+from dictconfig_handler import DictConfigHandler
 
 
 # --- Sample dataclasses for testing ---
@@ -110,3 +110,30 @@ class TestBuildDataclass:
         assert params.lr == 0.001
         assert params.batch_size == 32
         assert params.name == "default"
+
+    def test_build_dataclass_scalar_raises_type_error(self):
+        cfg = OmegaConf.create({"model": 42})
+        handler = DictConfigHandler(cfg=cfg)
+        with pytest.raises(TypeError, match="must be a DictConfig"):
+            handler.build_dataclass(ModelParams, key="model")
+
+
+# --- get_listconfig_value tests ---
+class TestGetListconfigValue:
+    def test_get_listconfig_value_exists(self):
+        cfg = OmegaConf.create({"layers": [64, 128, 256]})
+        handler = DictConfigHandler(cfg=cfg)
+        layers = handler.get_listconfig_value("layers")
+        assert list(layers) == [64, 128, 256]
+
+    def test_get_listconfig_value_missing_raises(self):
+        cfg = OmegaConf.create({"foo": 1})
+        handler = DictConfigHandler(cfg=cfg)
+        with pytest.raises(ValueError, match="Configuration key 'layers' not found"):
+            handler.get_listconfig_value("layers")
+
+    def test_get_listconfig_value_wrong_type_raises(self):
+        cfg = OmegaConf.create({"layers": {"depth": 18}})
+        handler = DictConfigHandler(cfg=cfg)
+        with pytest.raises(TypeError, match="must be a ListConfig"):
+            handler.get_listconfig_value("layers")

@@ -24,8 +24,11 @@ pip install -e ".[dev]"
 
 | Method | Description |
 |--------|-------------|
-| `get_value(key, is_empty_allowed=False)` | Retrieve a sub-configuration using a dot-notation key (e.g. `"model.params"`). Raises `ValueError` if the key is missing unless `is_empty_allowed=True`, in which case returns an empty DictConfig. |
-| `build_dataclass(cls_, key, is_empty_allowed=False)` | Build a dataclass instance from the config section at the given key. Missing fields are filled with dataclass defaults via DataclassInitializer. |
+| `get_value(key, is_empty_allowed=False)` | Retrieve any configuration value by dot-notation key. |
+| `get_str_value(key)` / `get_int_value(key)` / `get_float_value(key)` / `get_bool_value(key)` | Retrieve a typed scalar at the given key. |
+| `get_dictconfig_value(key)` | Retrieve a `DictConfig` sub-tree at the given key. |
+| `get_listconfig_value(key)` | Retrieve a `ListConfig` sequence at the given key. |
+| `build_dataclass(cls_, key, is_empty_allowed=False)` | Build a dataclass from the `DictConfig` section at the given key. |
 
 ## Example
 
