@@ -1,7 +1,7 @@
 """Tests for DictConfigHandler (get_value, build_dataclass)."""
 import pytest
 from dataclasses import dataclass
-from omegaconf import OmegaConf
+from omegaconf import DictConfig, OmegaConf
 
 from dictconfig_handler import DictConfigHandler
 
@@ -31,6 +31,7 @@ class TestGetValue:
         })
         handler = DictConfigHandler(cfg=cfg)
         sub = handler.get_value("model")
+        assert isinstance(sub, DictConfig)
         assert sub["lr"] == 0.01
         assert sub["batch_size"] == 64
 
@@ -40,6 +41,7 @@ class TestGetValue:
         })
         handler = DictConfigHandler(cfg=cfg)
         sub = handler.get_value("a.b")
+        assert isinstance(sub, DictConfig)
         assert sub["c"] == 42
 
     def test_get_value_missing_raises(self):
@@ -52,6 +54,7 @@ class TestGetValue:
         cfg = OmegaConf.create({"foo": 1})
         handler = DictConfigHandler(cfg=cfg)
         sub = handler.get_value("missing", is_empty_allowed=True)
+        assert isinstance(sub, DictConfig)
         assert sub == OmegaConf.create({})
         assert len(sub) == 0
 
