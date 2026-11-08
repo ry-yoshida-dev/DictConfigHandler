@@ -75,6 +75,11 @@ class TestTypedValue:
         with pytest.raises(TypeError, match="must be ListConfig, got DictConfig"):
             _ = handler.get_listconfig_value("layers")
 
+    def test_int_rejects_bool(self) -> None:
+        handler = make_handler({"flag": True})
+        with pytest.raises(TypeError, match="must be int, got bool"):
+            _ = handler.get_int_value("flag")
+
     def test_float_rejects_int(self) -> None:
         handler = make_handler({"lr": 1})
         with pytest.raises(TypeError, match="must be float, got int"):

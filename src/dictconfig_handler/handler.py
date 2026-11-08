@@ -128,7 +128,7 @@ class DictConfigHandler:
         KeyError
             If the key is not found.
         TypeError
-            If the value is not an integer.
+            If the value is not an integer. Booleans are rejected.
         """
         return self._get_typed_value(key=key, expected_type=int)
 
@@ -227,6 +227,9 @@ class DictConfigHandler:
     def _get_typed_value(self, key: str, expected_type: type[T]) -> T:
         selected = self.get_value(key=key)
         message = f"Configuration key '{key}' must be {expected_type.__name__}, got {type(selected).__name__}."
+        # bool subclasses int, so an int lookup must exclude it explicitly.
+        if type(selected) is bool and expected_type is int:
+            raise TypeError(message)
         if not isinstance(selected, expected_type):
             raise TypeError(message)
         return selected
