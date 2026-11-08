@@ -44,7 +44,7 @@ class DictConfigHandler:
 
         Raises
         ------
-        ValueError
+        KeyError
             If the key is not found and ``is_empty_allowed`` is False.
         TypeError
             If the value at the key is not a ``DictConfig``.
@@ -76,7 +76,7 @@ class DictConfigHandler:
 
         Raises
         ------
-        ValueError
+        KeyError
             If the key is not found and ``is_empty_allowed`` is False.
         """
         selected = cast(object, OmegaConf.select(self.cfg, key))
@@ -84,7 +84,7 @@ class DictConfigHandler:
             return selected
         if is_empty_allowed:
             return OmegaConf.create({})
-        raise ValueError(f"Configuration key '{key}' not found in the provided config.")
+        raise KeyError(f"Configuration key '{key}' not found in the provided config.")
 
     def get_str_value(self, key: str) -> str:
         """
@@ -102,7 +102,7 @@ class DictConfigHandler:
 
         Raises
         ------
-        ValueError
+        KeyError
             If the key is not found.
         TypeError
             If the value is not a string.
@@ -125,7 +125,7 @@ class DictConfigHandler:
 
         Raises
         ------
-        ValueError
+        KeyError
             If the key is not found.
         TypeError
             If the value is not an integer.
@@ -148,7 +148,7 @@ class DictConfigHandler:
 
         Raises
         ------
-        ValueError
+        KeyError
             If the key is not found.
         TypeError
             If the value is not a float. Integers are not converted.
@@ -171,7 +171,7 @@ class DictConfigHandler:
 
         Raises
         ------
-        ValueError
+        KeyError
             If the key is not found.
         TypeError
             If the value is not a boolean.
@@ -194,7 +194,7 @@ class DictConfigHandler:
 
         Raises
         ------
-        ValueError
+        KeyError
             If the key is not found.
         TypeError
             If the value is not a ``DictConfig``.
@@ -217,7 +217,7 @@ class DictConfigHandler:
 
         Raises
         ------
-        ValueError
+        KeyError
             If the key is not found.
         TypeError
             If the value is not a ``ListConfig``.

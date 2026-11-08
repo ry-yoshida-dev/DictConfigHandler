@@ -37,13 +37,13 @@ class TestGetValue:
 
     def test_missing_key_raises(self) -> None:
         handler = make_handler({"foo": 1})
-        with pytest.raises(ValueError, match="Configuration key 'missing' not found"):
+        with pytest.raises(KeyError, match="Configuration key 'missing' not found"):
             _ = handler.get_value("missing")
 
     @pytest.mark.parametrize("value", [None, "???"])
     def test_null_and_missing_marker_are_not_found(self, value: object) -> None:
         handler = make_handler({"foo": value})
-        with pytest.raises(ValueError):
+        with pytest.raises(KeyError):
             _ = handler.get_value("foo")
 
     def test_missing_key_with_empty_allowed_returns_empty_config(self) -> None:
@@ -67,7 +67,7 @@ class TestTypedValue:
 
     def test_missing_key_raises(self) -> None:
         handler = make_handler({"foo": 1})
-        with pytest.raises(ValueError, match="Configuration key 'layers' not found"):
+        with pytest.raises(KeyError, match="Configuration key 'layers' not found"):
             _ = handler.get_listconfig_value("layers")
 
     def test_wrong_type_raises(self) -> None:
@@ -101,7 +101,7 @@ class TestBuildDataclass:
 
     def test_missing_key_raises(self) -> None:
         handler = make_handler({"other": 1})
-        with pytest.raises(ValueError, match="Configuration key 'model' not found"):
+        with pytest.raises(KeyError, match="Configuration key 'model' not found"):
             _ = handler.build_dataclass(ModelParams, key="model")
 
     def test_missing_key_with_empty_allowed_uses_defaults(self) -> None:
