@@ -1,1 +1,2 @@
-dataclass-initializer @ https://github.com/ry-yoshida-dev/DataclassInitializer.git
+omegaconf>=2.0
+dataclass-initializer @ git+https://github.com/ry-yoshida-dev/DataclassInitializer.git
